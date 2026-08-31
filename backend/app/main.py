@@ -22,6 +22,7 @@ app = FastAPI(
 class ChatRequest(BaseModel):
     message: str
     source: str | None = None
+    session_id: str = "default"
 
 
 @app.get("/")
@@ -52,7 +53,8 @@ def get_documents():
 def chat(request: ChatRequest):
     result = answer_question(
         query=request.message,
-        source=request.source
+        source=request.source,
+        session_id=request.session_id
     )
 
     return result
@@ -83,7 +85,7 @@ def upload_document(file: UploadFile = File(...)):
         )
 
     file_path = Path("data/documents") / Path(file.filename).name
-    file_path = Path("data/documents") / Path(file.filename).name
+    
 
     try:
         with file_path.open("wb") as buffer:
