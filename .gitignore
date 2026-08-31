@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.DS_Store
+
+# Local RAG data
+data/chroma/
+data/documents/*
+!data/documents/.gitkeep
